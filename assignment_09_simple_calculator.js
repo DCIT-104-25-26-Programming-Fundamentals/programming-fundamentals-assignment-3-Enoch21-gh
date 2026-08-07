@@ -73,5 +73,158 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+/**
+ * Performs addition of two numbers.
+ * 
+ * @param {number} a - First number.
+ * @param {number} b - Second number.
+ * @returns {number} Sum of a and b.
+ */
+function add(a, b) {
+  return a + b;
+}
+
+/**
+ * Performs subtraction of two numbers.
+ * 
+ * @param {number} a - First number.
+ * @param {number} b - Second number.
+ * @returns {number} Difference of a and b.
+ */
+function subtract(a, b) {
+  return a - b;
+}
+
+/**
+ * Performs multiplication of two numbers.
+ * 
+ * @param {number} a - First number.
+ * @param {number} b - Second number.
+ * @returns {number} Product of a and b.
+ */
+function multiply(a, b) {
+  return a * b;
+}
+
+/**
+ * Performs division of two numbers.
+ * 
+ * @param {number} a - First number.
+ * @param {number} b - Second number.
+ * @returns {number|null} Quotient, or null if dividing by zero.
+ */
+function divide(a, b) {
+  if (b === 0) return null;
+  return a / b;
+}
+
+/**
+ * Performs modulus operation (remainder).
+ * 
+ * @param {number} a - First number.
+ * @param {number} b - Second number.
+ * @returns {number|null} Remainder, or null if taking modulus by zero.
+ */
+function modulus(a, b) {
+  if (b === 0) return null;
+  return a % b;
+}
+
+/**
+ * Performs exponentiation (a raised to power b).
+ * 
+ * @param {number} a - Base number.
+ * @param {number} b - Exponent.
+ * @returns {number} Result of exponentiation.
+ */
+function power(a, b) {
+  return a ** b;
+}
+
+/**
+ * Displays the formatted calculator menu options.
+ */
+function displayMenu() {
+  console.log('\n============================');
+  console.log('       SIMPLE CALCULATOR    ');
+  console.log('============================');
+  console.log('1. Addition');
+  console.log('2. Subtraction');
+  console.log('3. Multiplication');
+  console.log('4. Division');
+  console.log('5. Modulus');
+  console.log('6. Exponentiation');
+  console.log('7. Quit');
+}
+
+/**
+ * Main application control loop.
+ */
+function main() {
+  let running = true;
+
+  while (running) {
+    displayMenu();
+    const choice = readlineSync.question('Select an operation (1-7): ').trim();
+
+    if (choice === '7') {
+      console.log('Goodbye!');
+      running = false;
+      continue;
+    }
+
+    if (!['1', '2', '3', '4', '5', '6'].includes(choice)) {
+      console.log('Error: Invalid selection. Please enter a number between 1 and 7.');
+      continue;
+    }
+
+    const num1 = readlineSync.questionFloat('Enter first number : ');
+    const num2 = readlineSync.questionFloat('Enter second number: ');
+
+    let result = null;
+    let operator = '';
+
+    switch (choice) {
+      case '1':
+        result = add(num1, num2);
+        operator = '+';
+        break;
+      case '2':
+        result = subtract(num1, num2);
+        operator = '-';
+        break;
+      case '3':
+        result = multiply(num1, num2);
+        operator = '*';
+        break;
+      case '4':
+        result = divide(num1, num2);
+        operator = '/';
+        if (result === null) {
+          console.log('Error: Cannot divide by zero.');
+          continue;
+        }
+        break;
+      case '5':
+        result = modulus(num1, num2);
+        operator = '%';
+        if (result === null) {
+          console.log('Error: Cannot perform modulus by zero.');
+          continue;
+        }
+        break;
+      case '6':
+        result = power(num1, num2);
+        operator = '**';
+        break;
+    }
+
+    console.log(`Result: ${num1} ${operator} ${num2} = ${result.toFixed(2)}`);
+  }
+}
+
+// Run the application
+main();
 
